@@ -2,6 +2,12 @@ function divElementEnostavniTekst(sporocilo) {
   var media = "";
   
   sporocilo = sporocilo.replace(/\</g, '&lt;');//.replace(/&lt;img/g, '<img').replace(/\>/g, '&gt;').replace('png\' /&gt;', 'png\' />');
+  sporocilo = sporocilo.replace(new RegExp(/\bhttps:\/\/www\.youtube\.com\/watch\?v=\S+\b/, 'gi'), function(url)
+  {
+    media += "<iframe class='media' width='200px' height='150px' src='https://www.youtube.com/embed/" + url.split("=")[1] + "' allowfullscreen></iframe>";
+    return "<a href='" + url + "' target='_blank'>" + url + "</a>";
+  });
+  
   sporocilo = sporocilo.replace(new RegExp(/\bhttps?:\/\/\S+(\.png|\.gif|\.jpg)\b/, 'gi'), function(url)
   {
     var jeSmesko = url.indexOf('http://sandbox.lavbic.net/teaching/OIS/gradivo/') > -1;
